@@ -1,0 +1,1643 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Schritt-für-Schritt-Einführung in das Framework [React]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/de-react-etape-par-etape-sept-2026/asynchronitat-und-geteilter-zustand.html">
+      
+      
+        <link rel="prev" href="routing.html">
+      
+      
+        <link rel="next" href="internationalisierung.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>5. Asynchronität und geteilter Zustand - Schritt-für-Schritt-Einführung in das Framework [React]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Schritt-für-Schritt-Einführung in das Framework [React]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-asynchronitat-und-geteilter-zustand" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Schritt-für-Schritt-Einführung in das Framework [React]" class="md-header__button md-logo" aria-label="Schritt-für-Schritt-Einführung in das Framework [React]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Schritt-für-Schritt-Einführung in das Framework [React]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Asynchronität und geteilter Zustand
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Zum dunklen Modus wechseln"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Zum dunklen Modus wechseln" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Zum hellen Modus wechseln"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Zum hellen Modus wechseln" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/de-react-etape-par-etape-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Schritt-für-Schritt-Einführung in das Framework [React]" class="md-nav__button md-logo" aria-label="Schritt-für-Schritt-Einführung in das Framework [React]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Schritt-für-Schritt-Einführung in das Framework [React]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/de-react-etape-par-etape-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Willkommen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="einfuhrung.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Einführung
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="erste-schritte-mit-react.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Erste Schritte mit React
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="komponenten.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Komponenten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="routing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Routing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Asynchronität und geteilter Zustand
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="asynchronitat-und-geteilter-zustand.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Asynchronität und geteilter Zustand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-beispiel-19-asynchrone-verarbeitung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Beispiel 19: Asynchrone Verarbeitung
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1. Beispiel 19: Asynchrone Verarbeitung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-ein-countdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1. Ein Countdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-anti-bounce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2. Anti-Bounce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-die-seite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3. Die Seite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-beispiel-20-ein-geteilter-zustand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Beispiel 20: Ein geteilter Zustand
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2. Beispiel 20: Ein geteilter Zustand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-der-warenkorb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.1. Der Warenkorb
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-einstellungen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.2. Einstellungen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-die-komponenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.3. Die Komponenten
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#524-die-seite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.4. Die Seite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internationalisierung.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Internationalisierung
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="der-rdvmedecins-server-eine-blackbox.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Der RdvMedecins-Server, eine Blackbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="kommunikation-mit-dem-server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Kommunikation mit dem Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="zwischenfazit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Zwischenfazit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fallstudie-der-react-client-fur-die-anwendung-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Fallstudie: Der React-Client für die Anwendung RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bereitstellung.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Bereitstellung
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fazit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Fazit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="anhange.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Anhänge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="5-asynchronitat-und-geteilter-zustand">5. <span style="color: #2e74b5">Asynchronität und geteilter Zustand</span></h1>
+<h2 id="51-beispiel-19-asynchrone-verarbeitung">5.1. <span style="color: #2e74b5">Beispiel 19: Asynchrone Verarbeitung</span></h2>
+<p>Vieles geschieht „später“: Timer-Ticks, Tastenanschläge, Serverantworten. <em>[Angular]</em> stützt sich dafür auf die Bibliothek <em>[RxJS]</em> und ihre Observables. <em>[React]</em> hat keine eigenen dedizierten Werkzeuge für Asynchronität: Wir kombinieren Zustand, Effekte und deren Cleanup, die wir in Hooks kapseln; und ab <em>[React]</em> 19 erlauben <strong><em>[use()]</em></strong> und <strong><em>[&lt;Suspense&gt;]</em></strong> es, auf ein Promise zu warten.</p>
+<h3 id="511-ein-countdown">5.1.1. <span style="color: #1f4d78">Ein Countdown</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c1">// 19-asynchronous/src/hooks/useCountdown.ts - ein Timer in einem Hook</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1">// Vom Start bis 0, ein Wert pro Sekunde. Der Timer wird gestoppt, wenn der</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1">// Zähler 0 erreicht... oder wenn die Komponente verschwindet (Cleanup).</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useEffect</span><span class="p">,</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">useCountdown</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">remaining</span><span class="p">,</span><span class="w"> </span><span class="nx">setRemaining</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="nx">start</span><span class="p">);</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">  </span><span class="c1">// [remaining &gt; 0]: Der Effekt wird neu gestartet, wenn sich diese Bedingung ändert - also</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">  </span><span class="c1">// einmal, wenn der Zähler 0 erreicht (der Timer wird dann gestoppt)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">remaining</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">active</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setRemaining</span><span class="p">((</span><span class="nx">r</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">),</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">active</span><span class="p">]);</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">remaining</span><span class="p">;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 11: der Zähler;</li>
+<li>Zeile 15: der Zähler;</li>
+<li>Zeilen 16–20: Der Effekt hängt ausschließlich von <strong><em>[active]</em></strong> ab: Er wird beim Start ausgeführt (der Timer startet) und dann nur noch ein weiteres Mal, wenn der Zähler 0 erreicht; sein Cleanup stoppt dann den Timer, und die neue Ausführung tut nichts. <strong><em>[setRemaining((r) =&gt; r - 1)]</em></strong> verwendet die „Funktionsform“ der Aktualisierung: Der Timer wurde ein für alle Mal erstellt und sieht die neuen Werte von [remaining] nicht; die Funktion erhält dagegen den aktuellen Wert.</li>
+</ul>
+<h3 id="512-anti-bounce">5.1.2. <span style="color: #1f4d78">Anti-Bounce</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1">// 19-asynchronous/src/hooks/useDebouncedValue.ts - „Debounce“</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1">// Gibt den erhaltenen Wert zurück... aber erst, wenn er sich für</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// delay Millisekunden nicht mehr geändert hat. Bei einer Suche während der Eingabe: Wir</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c1">// warten, bis der Benutzer eine Pause macht, bevor wir den Server abfragen,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1">// statt pro Taste eine Anfrage zu senden.</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="c1">// Das Prinzip: Jeder neue Wert startet den Effekt neu, dessen Cleanup</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="c1">// den Timer des vorherigen Werts abbricht.</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useEffect</span><span class="p">,</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span><span class="p">;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">useDebouncedValue</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">T</span><span class="p">,</span><span class="w"> </span><span class="nx">delay</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">T</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">debounced</span><span class="p">,</span><span class="w"> </span><span class="nx">setDebounced</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setDebounced</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span><span class="w"> </span><span class="nx">delay</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span><span class="w"> </span><span class="c1">// ein Tastenanschlag vor Ablauf: abbrechen</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">delay</span><span class="p">]);</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">debounced</span><span class="p">;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Bei einer „Suche während der Eingabe“ warten wir, bis der Benutzer eine Pause macht, bevor wir den Server abfragen, anstatt bei jedem Tastenanschlag eine Anfrage zu senden: Das nennt sich <strong>Anti-Bounce</strong> (<em>[debounce]</em>). Der Hook gibt den empfangenen Wert zurück ... aber erst, wenn er sich <strong><em>[delay]</em></strong> Millisekunden lang nicht geändert hat:</p>
+<ul>
+<li>Zeilen 17–20: Jeder neue Wert startet den Effekt neu, der einen Timer setzt; und das Cleanup der vorherigen Ausführung BRICHT den Timer des vorherigen Werts AB. Daher erreicht nur der letzte Wert, auf den eine Pause folgt, <strong><em>[setDebounced]</em></strong>.</li>
+</ul>
+<p>Der Hook ist generisch (<strong><em>[&lt;T&gt;]</em></strong>): Er funktioniert für Werte beliebigen Typs.</p>
+<h3 id="513-die-seite">5.1.3. <span style="color: #1f4d78">Die Seite</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-2-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-2-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-2-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-2-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-2-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-2-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-2-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-2-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-2-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-2-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-2-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-2-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-2-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-2-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-2-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-2-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-2-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-2-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-2-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-2-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-2-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-2-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-2-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-2-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-2-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-2-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-2-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-2-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-2-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-2-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-2-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-2-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-2-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-2-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-2-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-2-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-2-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-2-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-2-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-2-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-2-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-2-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-2-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-2-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-2-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-2-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-2-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-2-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-2-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-2-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-2-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-2-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-2-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-2-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-2-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-2-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-2-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-2-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-2-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-2-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-2-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-2-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-2-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-2-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-2-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-2-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-2-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-2-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-2-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-2-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-2-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-2-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-2-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-2-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-2-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-2-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-2-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-2-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-2-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-2-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-2-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-2-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-2-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-2-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-2-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-2-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-2-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-2-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-2-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-2-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-2-100">100</a></span>
+<span class="normal"><a href="#__codelineno-2-101">101</a></span>
+<span class="normal"><a href="#__codelineno-2-102">102</a></span>
+<span class="normal"><a href="#__codelineno-2-103">103</a></span>
+<span class="normal"><a href="#__codelineno-2-104">104</a></span>
+<span class="normal"><a href="#__codelineno-2-105">105</a></span>
+<span class="normal"><a href="#__codelineno-2-106">106</a></span>
+<span class="normal"><a href="#__codelineno-2-107">107</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1">// 19-asynchronous/src/App.tsx - Timer, Suche während der Eingabe, use()</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1">// Vieles geschieht „später“: die Ticks eines Timers, die</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// Tastenanschläge, die Antwort eines Servers. React hat kein eigenes Werkzeug</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c1">// für Asynchronität (Angular verwendet die Bibliothek RxJS): Wir kombinieren</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1">// Zustand, Effekte und deren Cleanup, abgelegt in Hooks (hooks/),</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1">// und seit React 19 use() + &lt;Suspense&gt;, um auf ein Promise zu warten.</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Suspense</span><span class="p">,</span><span class="w"> </span><span class="nx">use</span><span class="p">,</span><span class="w"> </span><span class="nx">useEffect</span><span class="p">,</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useCountdown</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./hooks/useCountdown'</span><span class="p">;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useDebouncedValue</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./hooks/useDebouncedValue'</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="kd">const</span><span class="w"> </span><span class="nx">DOCTORS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'Marie PELISSIER'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Paul TATOU'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Sophie DUPONT'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Jacques DURAND'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Martine PELLETIER'</span><span class="p">];</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="c1">// ein simulierter „Server“: Die Antwort trifft nach einer zufälligen Verzögerung ein</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="kd">function</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">DOCTORS</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">m</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">includes</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">found</span><span class="p">),</span><span class="w"> </span><span class="mf">200</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">600</span><span class="p">));</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="p">}</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="c1">// 3. ein Promise, EINMAL erstellt (außerhalb der Komponente): Es wird nach</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="c1">// einer Sekunde aufgelöst</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="kd">const</span><span class="w"> </span><span class="nx">messagePromise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">  </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="s1">'three (one second later)'</span><span class="p">),</span><span class="w"> </span><span class="mf">1000</span><span class="p">),</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="p">);</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="c1">// use(promise): der Wert des Promise. Solange es nicht</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="c1">// aufgelöst ist, „suspendiert“ die Komponente ihre Anzeige: Das nächstgelegene &lt;Suspense&gt;</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="c1">// zeigt stattdessen seinen Wartezustand (fallback) an</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="kd">function</span><span class="w"> </span><span class="nx">Message</span><span class="p">({</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">promise</span><span class="o">:</span><span class="w"> </span><span class="kt">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">use</span><span class="p">(</span><span class="nx">promise</span><span class="p">);</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"mb-0"</span><span class="o">&gt;</span><span class="nx">received</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;;</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="p">}</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36"></a>
+<a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">log</span><span class="p">,</span><span class="w"> </span><span class="nx">setLog</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setLog</span><span class="p">((</span><span class="nx">j</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[...</span><span class="nx">j</span><span class="p">,</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toLocaleTimeString</span><span class="p">()</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">]);</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40"></a>
+<a id="__codelineno-2-41" name="__codelineno-2-41"></a><span class="w">  </span><span class="c1">// 1. ein Countdown: ein selbstgebauter Hook</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">countdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCountdown</span><span class="p">(</span><span class="mf">20</span><span class="p">);</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43"></a>
+<a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="w">  </span><span class="c1">// 2. eine Suche während der Eingabe</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">input</span><span class="p">,</span><span class="w"> </span><span class="nx">setInput</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useDebouncedValue</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">toLowerCase</span><span class="p">(),</span><span class="w"> </span><span class="mf">400</span><span class="p">);</span><span class="w"> </span><span class="c1">// nach 400 ms ohne Tastenanschlag</span>
+<a id="__codelineno-2-47" name="__codelineno-2-47"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">results</span><span class="p">,</span><span class="w"> </span><span class="nx">setResults</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48"></a>
+<a id="__codelineno-2-49" name="__codelineno-2-49"></a><span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-50" name="__codelineno-2-50"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-51" name="__codelineno-2-51"></a><span class="w">      </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">// keine Suche (und kein Cleanup)</span>
+<a id="__codelineno-2-52" name="__codelineno-2-52"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-53" name="__codelineno-2-53"></a><span class="w">    </span><span class="c1">// „stale“: Eine Antwort, die ankommt, NACHDEM eine andere Suche</span>
+<a id="__codelineno-2-54" name="__codelineno-2-54"></a><span class="w">    </span><span class="c1">// gestartet wurde, muss ignoriert werden (sonst würde eine langsame Antwort einer alten</span>
+<a id="__codelineno-2-55" name="__codelineno-2-55"></a><span class="w">    </span><span class="c1">// Suche die der neuen überschreiben)</span>
+<a id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">stale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-2-57" name="__codelineno-2-57"></a><span class="w">    </span><span class="nx">trace</span><span class="p">(</span><span class="sb">`search sent: "</span><span class="si">${</span><span class="nx">text</span><span class="si">}</span><span class="sb">"`</span><span class="p">);</span>
+<a id="__codelineno-2-58" name="__codelineno-2-58"></a><span class="w">    </span><span class="nx">search</span><span class="p">(</span><span class="nx">text</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">found</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-59" name="__codelineno-2-59"></a><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">stale</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-60" name="__codelineno-2-60"></a><span class="w">        </span><span class="nx">trace</span><span class="p">(</span><span class="sb">`response ignored (stale): "</span><span class="si">${</span><span class="nx">text</span><span class="si">}</span><span class="sb">"`</span><span class="p">);</span>
+<a id="__codelineno-2-61" name="__codelineno-2-61"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-2-62" name="__codelineno-2-62"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-2-63" name="__codelineno-2-63"></a><span class="w">      </span><span class="nx">setResults</span><span class="p">(</span><span class="nx">found</span><span class="p">);</span>
+<a id="__codelineno-2-64" name="__codelineno-2-64"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-2-65" name="__codelineno-2-65"></a><span class="w">    </span><span class="c1">// das Cleanup: ausgeführt, wenn sich text ändert (neue Suche) oder beim Entfernen</span>
+<a id="__codelineno-2-66" name="__codelineno-2-66"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-67" name="__codelineno-2-67"></a><span class="w">      </span><span class="nx">stale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-2-68" name="__codelineno-2-68"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-2-69" name="__codelineno-2-69"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">text</span><span class="p">]);</span>
+<a id="__codelineno-2-70" name="__codelineno-2-70"></a>
+<a id="__codelineno-2-71" name="__codelineno-2-71"></a><span class="w">  </span><span class="c1">// weniger als zwei Buchstaben: kein Ergebnis, unabhängig von denen der</span>
+<a id="__codelineno-2-72" name="__codelineno-2-72"></a><span class="w">  </span><span class="c1">// letzten Suche (ein berechneter Wert, kein weiterer Zustand)</span>
+<a id="__codelineno-2-73" name="__codelineno-2-73"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">displayed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">results</span><span class="p">;</span>
+<a id="__codelineno-2-74" name="__codelineno-2-74"></a>
+<a id="__codelineno-2-75" name="__codelineno-2-75"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-2-76" name="__codelineno-2-76"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"container py-4"</span><span class="w"> </span><span class="nx">style</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">maxWidth</span><span class="o">:</span><span class="w"> </span><span class="kt">720</span><span class="w"> </span><span class="p">}}</span><span class="o">&gt;</span>
+<a id="__codelineno-2-77" name="__codelineno-2-77"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">h1</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h3 mb-3"</span><span class="o">&gt;</span><span class="nx">Example</span><span class="w"> </span><span class="mf">19</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">asynchrony</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<a id="__codelineno-2-78" name="__codelineno-2-78"></a>
+<a id="__codelineno-2-79" name="__codelineno-2-79"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"card p-3 mb-3"</span><span class="o">&gt;</span>
+<a id="__codelineno-2-80" name="__codelineno-2-80"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">A</span><span class="w"> </span><span class="nx">countdown</span><span class="w"> </span><span class="p">(</span><span class="nx">setInterval</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">hook</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-2-81" name="__codelineno-2-81"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"display-6 mb-0"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">countdown</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+<a id="__codelineno-2-82" name="__codelineno-2-82"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-2-83" name="__codelineno-2-83"></a>
+<a id="__codelineno-2-84" name="__codelineno-2-84"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"card p-3 mb-3"</span><span class="o">&gt;</span>
+<a id="__codelineno-2-85" name="__codelineno-2-85"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">A</span><span class="w"> </span><span class="nx">search</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">(</span><span class="nx">debounce</span><span class="p">,</span><span class="w"> </span><span class="nx">stale</span><span class="w"> </span><span class="nx">responses</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-2-86" name="__codelineno-2-86"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">input</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"form-control mb-2"</span><span class="w"> </span><span class="nx">placeholder</span><span class="o">=</span><span class="s2">"at least two letters: pel, dur..."</span><span class="w"> </span><span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">input</span><span class="p">}</span>
+<a id="__codelineno-2-87" name="__codelineno-2-87"></a><span class="w">               </span><span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setInput</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span><span class="w"> </span><span class="o">/&gt;</span>
+<a id="__codelineno-2-88" name="__codelineno-2-88"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">ul</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"mb-0"</span><span class="o">&gt;</span>
+<a id="__codelineno-2-89" name="__codelineno-2-89"></a><span class="w">          </span><span class="p">{</span><span class="nx">displayed</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">r</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">li</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">r</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">r</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/li&gt;)}</span>
+<a id="__codelineno-2-90" name="__codelineno-2-90"></a><span class="w">          </span><span class="p">{</span><span class="nx">displayed</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">li</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"text-muted"</span><span class="o">&gt;</span><span class="nx">no</span><span class="w"> </span><span class="nx">result</span><span class="o">&lt;</span><span class="err">/li&gt;}</span>
+<a id="__codelineno-2-91" name="__codelineno-2-91"></a><span class="w">        </span><span class="o">&lt;</span><span class="err">/ul&gt;</span>
+<a id="__codelineno-2-92" name="__codelineno-2-92"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-2-93" name="__codelineno-2-93"></a>
+<a id="__codelineno-2-94" name="__codelineno-2-94"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"card p-3 mb-3"</span><span class="o">&gt;</span>
+<a id="__codelineno-2-95" name="__codelineno-2-95"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Waiting</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="p">(</span><span class="nx">use</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">Suspense</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-2-96" name="__codelineno-2-96"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">Suspense</span><span class="w"> </span><span class="nx">fallback</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"text-muted mb-0"</span><span class="o">&gt;</span><span class="nx">waiting</span><span class="p">...</span><span class="o">&lt;</span><span class="err">/p&gt;}&gt;</span>
+<a id="__codelineno-2-97" name="__codelineno-2-97"></a><span class="w">          </span><span class="o">&lt;</span><span class="nx">Message</span><span class="w"> </span><span class="nx">promise</span><span class="o">=</span><span class="p">{</span><span class="nx">messagePromise</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+<a id="__codelineno-2-98" name="__codelineno-2-98"></a><span class="w">        </span><span class="o">&lt;</span><span class="err">/Suspense&gt;</span>
+<a id="__codelineno-2-99" name="__codelineno-2-99"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-2-100" name="__codelineno-2-100"></a>
+<a id="__codelineno-2-101" name="__codelineno-2-101"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Log</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-2-102" name="__codelineno-2-102"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">ol</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"small"</span><span class="o">&gt;</span>
+<a id="__codelineno-2-103" name="__codelineno-2-103"></a><span class="w">        </span><span class="p">{</span><span class="nx">log</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">line</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">li</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">line</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/li&gt;)}</span>
+<a id="__codelineno-2-104" name="__codelineno-2-104"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/ol&gt;</span>
+<a id="__codelineno-2-105" name="__codelineno-2-105"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-2-106" name="__codelineno-2-106"></a><span class="w">  </span><span class="p">);</span>
+<a id="__codelineno-2-107" name="__codelineno-2-107"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeilen 18–21: ein simulierter „Server“: Die Antwort trifft nach einer zufälligen Verzögerung von 200 bis 800 ms ein;</li>
+<li>Zeilen 25–27: ein Promise, das EINMAL (außerhalb der Komponente) erstellt und nach einer Sekunde aufgelöst wird;</li>
+<li>Zeilen 32–35: <strong><em>[use(promise)]</em></strong> liefert den Wert eines Promise. Solange es nicht aufgelöst ist, „suspendiert“ die Komponente ihre Anzeige: Das nächstgelegene <strong><em>[&lt;Suspense&gt;]</em></strong> (Zeile 96) zeigt seinen Platzhalterinhalt an (<strong><em>[fallback]</em></strong>). Sobald das Promise aufgelöst ist, ruft <em>[React]</em> die Komponente erneut auf, und <strong><em>[use]</em></strong> liefert den Wert. Das Promise muss AUSSERHALB der Komponente oder von einer Bibliothek erstellt werden, die es im Cache hält: Ein während des Renderns erstelltes Promise würde bei jedem Aufruf neu erstellt, und das Warten würde nie enden;</li>
+<li>Zeile 42: der benutzerdefinierte Hook;</li>
+<li>Zeile 46: der Suchtext, nach 400 ms ohne Tastenanschläge;</li>
+<li>Zeilen 49–69: die Suche, die neu gestartet wird, wenn sich der (gecachte) Text ändert:<ul>
+<li>das Problem mit <strong>veralteten Antworten</strong>: Sie geben „pel“ ein, machen eine Pause, und die Suche startet; Sie geben „du“ ein, machen eine Pause, und eine zweite Suche startet. Wenn die Antwort auf „pel“ NACH der auf „du“ eintrifft (Netzwerkverzögerungen sind unvorhersehbar), würde sie die korrekten Ergebnisse überschreiben;</li>
+<li>Die Lösung (Zeilen 56–67): eine Variable, die für JEDE Ausführung des Effekts eigens existiert und auf <strong><em>[true]</em></strong> gesetzt wird, wenn sich der Text ändert. Jede Antwort, die danach eintrifft, wird ignoriert;</li>
+</ul>
+</li>
+<li>Zeile 73: weniger als zwei Buchstaben: keine Ergebnisse, unabhängig von den Ergebnissen der letzten Suche. Das ist ein berechneter Wert, kein zusätzlicher Zustand.</li>
+</ul>
+<p>Sie geben „pel“ ein, warten einen Moment und geben dann „du“ ein; die Antwort auf „pel“ trifft zu spät ein und wird ignoriert:</p>
+<p><img src="images/10000000000005DC0000037E6CBD57DA.png" width="605" height="360" style="width:16cm;height:9.536cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000005DC0000037E6CBD57DA.png" /></p>
+<p>Eigenen Code zur Behandlung von Anfragen zu schreiben (in Bearbeitung, erfolgreich, Fehler, abgelaufen, bereits im Cache usw.) ist mühsam. Für die Kommunikation mit einem Server verwendet man in der Praxis eine Bibliothek, die das übernimmt: In Beispiel 24 wird das <em>[TanStack Query]</em> sein.</p>
+<h2 id="52-beispiel-20-ein-geteilter-zustand">5.2. <span style="color: #2e74b5">Beispiel 20: Ein geteilter Zustand</span></h2>
+<p>Beispiel 18 zeigt, wie man einen Store von Hand schreibt. Die Bibliothek <em>[Zustand]</em> leistet dasselbe in nur wenigen Zeilen und ist eine der am weitesten verbreiteten Bibliotheken zur Verwaltung von geteiltem Zustand in einer <em>[React]</em>-Anwendung (neben <em>[Redux Toolkit]</em>, das umfassender, aber auch ressourcenintensiver ist).</p>
+<h3 id="521-der-warenkorb">5.2.1. <span style="color: #1f4d78">Der Warenkorb</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="c1">// 20-shared-state/src/stores/cart.ts - ein GEMEINSAMER ZUSTAND mit Zustand</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1">// Ein „Store“ ist ein Zustand, der AUSSERHALB der Komponenten lebt, in EINER einzigen</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="c1">// Kopie, geteilt von allen, die ihn lesen. Beispiel 18 hat</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="c1">// einen von Hand geschrieben (useSyncExternalStore); die Bibliothek Zustand macht</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c1">// dasselbe in wenigen Zeilen:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="c1">//</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="c1">//     const useCart = create&lt;Cart&gt;()((set, get) =&gt; ({ ...state and actions... }));</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="c1">//</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="c1">// create gibt einen HOOK zurück. Eine Komponente liest darin, was sie braucht, über einen</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="c1">// „Selektor“: useCart((p) =&gt; p.items). Sie wird nur erneut aufgerufen, wenn sich DIESES</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="c1">// Stück des Zustands ändert. Übliche Organisation:</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="c1">//   - der ZUSTAND: Daten (items);</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="c1">//   - die AKTIONEN: Funktionen, die als einzige den Zustand ändern, über set();</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="c1">//   - die berechneten Werte: Funktionen (oder Selektoren).</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="c1">// Der Store lebt, solange die Anwendung lebt: Er überlebt das Entfernen einer</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="c1">// Komponente... aber nicht das Neuladen der Seite (F5), das die</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="c1">// Anwendung neu startet. (Context + useReducer kann dieselbe Arbeit leisten;</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="c1">// ein Store hat den Vorteil, auch AUSSERHALB der Komponenten lesbar zu sein.)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'zustand'</span><span class="p">;</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">  </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">  </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a>
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">Cart</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">  </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">Item</span><span class="p">[];</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">  </span><span class="nx">add</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">item</span><span class="o">:</span><span class="w"> </span><span class="kt">Item</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">  </span><span class="nx">clear</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="p">}</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a>
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">useCart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">create</span><span class="o">&lt;</span><span class="nx">Cart</span><span class="o">&gt;</span><span class="p">()((</span><span class="nx">set</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">  </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="w">  </span><span class="c1">// set(function): erhält den aktuellen Zustand und liefert zurück, was sich ändert (der Rest bleibt erhalten)</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">  </span><span class="nx">add</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">item</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">set</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">[...</span><span class="nx">p</span><span class="p">.</span><span class="nx">items</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="p">]</span><span class="w"> </span><span class="p">})),</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="w">  </span><span class="nx">clear</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">set</span><span class="p">({</span><span class="w"> </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">}),</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="p">}));</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a>
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="c1">// wiederverwendbare Selektoren: aus dem Zustand berechnete Werte</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">itemCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="o">:</span><span class="w"> </span><span class="kt">Cart</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">cartTotal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="o">:</span><span class="w"> </span><span class="kt">Cart</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">price</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 23: die Funktion, die einen Store erstellt;</li>
+<li>Zeilen 30–34: der Typ des Stores: <strong>der Zustand</strong> ([items]) und die <strong>Aktionen</strong> ([add], [clear]), die als Einzige ihn ändern können;</li>
+<li>Zeilen 36–41: <strong><em>[create&lt;Cart&gt;()(factory)]</em></strong> erstellt den Store und liefert einen <strong>Hook</strong>. Die Factory erhält <strong><em>[set]</em></strong>, das den Zustand ändert: <strong><em>[set(object)] oder [set((state) =&gt; object)]</em></strong>; es werden nur die Änderungen übergeben; der Rest bleibt erhalten. Wie bei <strong><em>[useState]</em></strong>wird der Zustand selbst nie verändert: Es wird ein neuer erstellt;</li>
+<li>Zeilen 44–45: <strong>Selektoren</strong> – Funktionen, die einen Wert auf Grundlage des Zustands berechnen.</li>
+</ul>
+<p>Der Store existiert, solange die Anwendung läuft, in genau EINER Kopie: Er überlebt das Entfernen einer Komponente ... aber nicht das Neuladen der Seite (F5), das die Anwendung neu startet. Kontext und <strong><em>[useReducer]</em></strong> könnten dieselbe Aufgabe erfüllen; ein Store hat zwei Vorteile: Er ist auch außerhalb von Komponenten lesbar (zum Beispiel von einem Router-Guard), und eine Komponente wird nur dann erneut aufgerufen, wenn sich der Teil des Zustands ändert, den sie liest.</p>
+<h3 id="522-einstellungen">5.2.2. <span style="color: #1f4d78">Einstellungen</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="c1">// 20-shared-state/src/stores/preferences.ts - ein Zustand, der F5 überlebt</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c1">// Damit Daten das Neuladen der Seite oder das Schließen</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1">// des Browsers überstehen, müssen sie IM Browser gespeichert werden: localStorage (ein</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="c1">// kleines Wörterbuch Schlüssel -&gt; Zeichenkette, spezifisch für jede Website).</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="c1">// Die persist-„Middleware“ von Zustand übernimmt das: Sie liest localStorage bei</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="c1">// der Erstellung des Stores erneut ein und schreibt es bei jeder Änderung neu (Schlüssel</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="c1">// "example20.preferences", Wert: das JSON des Zustands).</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c1">// Niemals sensible Daten darin speichern (Passwort, Token): Jedes Skript</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="c1">// der Seite kann localStorage lesen.</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'zustand'</span><span class="p">;</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">persist</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'zustand/middleware'</span><span class="p">;</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">Preferences</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">  </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">  </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="c1">// Textgröße in px</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">  </span><span class="nx">update</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">change</span><span class="o">:</span><span class="w"> </span><span class="kt">Partial</span><span class="o">&lt;</span><span class="nx">Pick</span><span class="o">&lt;</span><span class="nx">Preferences</span><span class="p">,</span><span class="w"> </span><span class="s1">'dark'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">'size'</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="p">}</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">usePreferences</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">create</span><span class="o">&lt;</span><span class="nx">Preferences</span><span class="o">&gt;</span><span class="p">()(</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">  </span><span class="nx">persist</span><span class="p">(</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">    </span><span class="p">(</span><span class="nx">set</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">      </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">      </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="kt">16</span><span class="p">,</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">      </span><span class="nx">update</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">change</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">set</span><span class="p">(</span><span class="nx">change</span><span class="p">),</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">    </span><span class="p">}),</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'example20.preferences'</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">  </span><span class="p">),</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>Damit Daten nach dem Neuladen der Seite oder dem Schließen des Browsers erhalten bleiben, müssen sie IM Browser gespeichert werden: <strong><em>[localStorage]</em></strong>, ein kleines Schlüssel-String-Wörterbuch, das für jede Website separat existiert. Die „Middleware“ <strong><em>[persist]</em></strong> von <em>[Zustand]</em> übernimmt dies (Zeilen 24–31): Sie liest <strong><em>[localStorage]</em></strong> beim Erstellen des Stores und schreibt es bei jeder Änderung neu, unter dem Schlüssel <strong><em>[example20.preferences]</em></strong> (Zeile 30). Sensible Daten (Passwörter, Token) werden dort NIEMALS gespeichert: Jedes Skript auf der Seite kann <strong><em>[localStorage]</em></strong> lesen.</p>
+<h3 id="523-die-komponenten">5.2.3. <span style="color: #1f4d78">Die Komponenten</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1">// 20-shared-state/src/components/Shop.tsx - FÜGT dem gemeinsamen Warenkorb etwas HINZU</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useCart</span><span class="p">,</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../stores/cart'</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">PRODUCTS</span><span class="o">:</span><span class="w"> </span><span class="kt">Item</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Consultation'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">30</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Vaccine'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">12.5</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="p">];</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">Shop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">  </span><span class="c1">// es wird nur die Aktion gelesen: Shop wird nicht erneut aufgerufen, wenn sich der Warenkorb ändert</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCart</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">add</span><span class="p">);</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"card p-3 h-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Shop</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">      </span><span class="p">{</span><span class="nx">PRODUCTS</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">p</span><span class="p">.</span><span class="nx">label</span><span class="p">}</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-sm btn-outline-primary mb-2"</span><span class="w"> </span><span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="nx">p</span><span class="p">)}</span><span class="o">&gt;</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">          </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="nx">p</span><span class="p">.</span><span class="nx">label</span><span class="p">}</span><span class="w"> </span><span class="p">(</span><span class="err">€</span><span class="p">{</span><span class="nx">p</span><span class="p">.</span><span class="nx">price</span><span class="p">})</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">        </span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">      </span><span class="p">))}</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">  </span><span class="p">);</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong><em>[useCart((p) =&gt; p.add)]</em></strong>: Eine Komponente liest den Store über einen <strong>Selektor</strong> und wird nur aufgerufen, wenn sich DER Teil des Zustands ändert, den sie liest. <strong><em>[Shop] liest nur die Aktion [add]</em></strong>, die sich nie ändert: Sie wird nie aufgerufen, wenn sich der Warenkorb ändert.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1">// 20-shared-state/src/components/CartSummary.tsx - LIEST denselben Warenkorb</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">itemCount</span><span class="p">,</span><span class="w"> </span><span class="nx">cartTotal</span><span class="p">,</span><span class="w"> </span><span class="nx">useCart</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../stores/cart'</span><span class="p">;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">CartSummary</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCart</span><span class="p">(</span><span class="nx">itemCount</span><span class="p">);</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCart</span><span class="p">(</span><span class="nx">cartTotal</span><span class="p">);</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">clear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCart</span><span class="p">((</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">clear</span><span class="p">);</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"card p-3 h-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Cart</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"mb-2"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">count</span><span class="p">}</span><span class="w"> </span><span class="nx">item</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span><span class="w"> </span><span class="err">€</span><span class="p">{</span><span class="nx">total</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-sm btn-outline-danger align-self-start"</span><span class="w"> </span><span class="nx">disabled</span><span class="o">=</span><span class="p">{</span><span class="nx">count</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">}</span><span class="w"> </span><span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">clear</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Clear</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">  </span><span class="p">);</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong><em>[CartSummary]</em></strong> liest die Anzahl der Artikel und die Summe über die Selektoren des Stores.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1">// 20-shared-state/src/components/LocalCounter.tsx - ein LOKALER Zustand, der mit der Komponente verschwindet</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">LocalCounter</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">clicks</span><span class="p">,</span><span class="w"> </span><span class="nx">setClicks</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"card p-3 h-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"btn btn-sm btn-outline-secondary align-self-start"</span><span class="w"> </span><span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setClicks</span><span class="p">(</span><span class="nx">clicks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">)}</span><span class="o">&gt;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">        </span><span class="p">{</span><span class="nx">clicks</span><span class="p">}</span><span class="w"> </span><span class="nx">click</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">  </span><span class="p">);</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Ein LOKALER Zustand, der zusammen mit der Komponente verschwindet.</p>
+<h3 id="524-die-seite">5.2.4. <span style="color: #1f4d78">Die Seite</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span>
+<span class="normal"><a href="#__codelineno-8-23">23</a></span>
+<span class="normal"><a href="#__codelineno-8-24">24</a></span>
+<span class="normal"><a href="#__codelineno-8-25">25</a></span>
+<span class="normal"><a href="#__codelineno-8-26">26</a></span>
+<span class="normal"><a href="#__codelineno-8-27">27</a></span>
+<span class="normal"><a href="#__codelineno-8-28">28</a></span>
+<span class="normal"><a href="#__codelineno-8-29">29</a></span>
+<span class="normal"><a href="#__codelineno-8-30">30</a></span>
+<span class="normal"><a href="#__codelineno-8-31">31</a></span>
+<span class="normal"><a href="#__codelineno-8-32">32</a></span>
+<span class="normal"><a href="#__codelineno-8-33">33</a></span>
+<span class="normal"><a href="#__codelineno-8-34">34</a></span>
+<span class="normal"><a href="#__codelineno-8-35">35</a></span>
+<span class="normal"><a href="#__codelineno-8-36">36</a></span>
+<span class="normal"><a href="#__codelineno-8-37">37</a></span>
+<span class="normal"><a href="#__codelineno-8-38">38</a></span>
+<span class="normal"><a href="#__codelineno-8-39">39</a></span>
+<span class="normal"><a href="#__codelineno-8-40">40</a></span>
+<span class="normal"><a href="#__codelineno-8-41">41</a></span>
+<span class="normal"><a href="#__codelineno-8-42">42</a></span>
+<span class="normal"><a href="#__codelineno-8-43">43</a></span>
+<span class="normal"><a href="#__codelineno-8-44">44</a></span>
+<span class="normal"><a href="#__codelineno-8-45">45</a></span>
+<span class="normal"><a href="#__codelineno-8-46">46</a></span>
+<span class="normal"><a href="#__codelineno-8-47">47</a></span>
+<span class="normal"><a href="#__codelineno-8-48">48</a></span>
+<span class="normal"><a href="#__codelineno-8-49">49</a></span>
+<span class="normal"><a href="#__codelineno-8-50">50</a></span>
+<span class="normal"><a href="#__codelineno-8-51">51</a></span>
+<span class="normal"><a href="#__codelineno-8-52">52</a></span>
+<span class="normal"><a href="#__codelineno-8-53">53</a></span>
+<span class="normal"><a href="#__codelineno-8-54">54</a></span>
+<span class="normal"><a href="#__codelineno-8-55">55</a></span>
+<span class="normal"><a href="#__codelineno-8-56">56</a></span>
+<span class="normal"><a href="#__codelineno-8-57">57</a></span>
+<span class="normal"><a href="#__codelineno-8-58">58</a></span>
+<span class="normal"><a href="#__codelineno-8-59">59</a></span>
+<span class="normal"><a href="#__codelineno-8-60">60</a></span>
+<span class="normal"><a href="#__codelineno-8-61">61</a></span>
+<span class="normal"><a href="#__codelineno-8-62">62</a></span>
+<span class="normal"><a href="#__codelineno-8-63">63</a></span>
+<span class="normal"><a href="#__codelineno-8-64">64</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="c1">// 20-shared-state/src/App.tsx - drei „Gültigkeitsbereiche“ von Daten auf der Client-Seite</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1">// Dieselbe Frage wie in Beispiel 23 des NestJS-Kurses (Anwendungs-, Anfrage-</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="c1">// und Client-Bereich), übertragen in den Browser:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="c1">//   - der LOKALE Zustand einer Komponente (LocalCounter) verschwindet mit ihr;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="c1">//   - der Zustand eines STORE (der Warenkorb) wird von allen Komponenten geteilt</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="c1">//     und überlebt deren Entfernung - aber nicht F5;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="c1">//   - der in localStorage gespeicherte Zustand (die Einstellungen) überlebt F5 und das</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="c1">//     Schließen des Browsers.</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="c1">// Und eine Neuheit von React 19.2, &lt;Activity mode="hidden"&gt;: Der Inhalt wird</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="c1">// AUSGEBLENDET, aber nicht entfernt; sein lokaler Zustand bleibt erhalten.</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="c1">// „Bereich anzeigen“ aus- und wieder einschalten, dann die Seite neu laden: vergleichen.</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Activity</span><span class="p">,</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span><span class="p">;</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">usePreferences</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./stores/preferences'</span><span class="p">;</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="k">import</span><span class="w"> </span><span class="nx">Shop</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./components/Shop'</span><span class="p">;</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a><span class="k">import</span><span class="w"> </span><span class="nx">CartSummary</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./components/CartSummary'</span><span class="p">;</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="k">import</span><span class="w"> </span><span class="nx">LocalCounter</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./components/LocalCounter'</span><span class="p">;</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">dark</span><span class="p">,</span><span class="w"> </span><span class="nx">size</span><span class="p">,</span><span class="w"> </span><span class="nx">update</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">usePreferences</span><span class="p">();</span>
+<a id="__codelineno-8-24" name="__codelineno-8-24"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">areaVisible</span><span class="p">,</span><span class="w"> </span><span class="nx">setAreaVisible</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25"></a>
+<a id="__codelineno-8-26" name="__codelineno-8-26"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-27" name="__codelineno-8-27"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="sb">`min-vh-100 </span><span class="si">${</span><span class="nx">dark</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">'bg-dark text-light'</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">''</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span><span class="w"> </span><span class="nx">style</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">fontSize</span><span class="o">:</span><span class="w"> </span><span class="kt">size</span><span class="w"> </span><span class="p">}}</span><span class="o">&gt;</span>
+<a id="__codelineno-8-28" name="__codelineno-8-28"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"container py-4"</span><span class="o">&gt;</span>
+<a id="__codelineno-8-29" name="__codelineno-8-29"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">h1</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"h3 mb-3"</span><span class="o">&gt;</span><span class="nx">Example</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">shared</span><span class="w"> </span><span class="nx">state</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<a id="__codelineno-8-30" name="__codelineno-8-30"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"d-flex flex-wrap gap-4 mb-3"</span><span class="o">&gt;</span>
+<a id="__codelineno-8-31" name="__codelineno-8-31"></a><span class="w">          </span><span class="o">&lt;</span><span class="nx">label</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"form-check-label"</span><span class="o">&gt;</span>
+<a id="__codelineno-8-32" name="__codelineno-8-32"></a><span class="w">            </span><span class="o">&lt;</span><span class="nx">input</span><span class="w"> </span><span class="kr">type</span><span class="o">=</span><span class="s2">"checkbox"</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"form-check-input"</span><span class="w"> </span><span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">dark</span><span class="p">}</span>
+<a id="__codelineno-8-33" name="__codelineno-8-33"></a><span class="w">                   </span><span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">update</span><span class="p">({</span><span class="w"> </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="kt">e.target.checked</span><span class="w"> </span><span class="p">})}</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="nx">dark</span><span class="w"> </span><span class="nx">theme</span>
+<a id="__codelineno-8-34" name="__codelineno-8-34"></a><span class="w">          </span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+<a id="__codelineno-8-35" name="__codelineno-8-35"></a><span class="w">          </span><span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+<a id="__codelineno-8-36" name="__codelineno-8-36"></a><span class="w">            </span><span class="nx">text</span><span class="w"> </span><span class="nx">size</span><span class="p">{</span><span class="s1">' '</span><span class="p">}</span>
+<a id="__codelineno-8-37" name="__codelineno-8-37"></a><span class="w">            </span><span class="o">&lt;</span><span class="nx">input</span><span class="w"> </span><span class="kr">type</span><span class="o">=</span><span class="s2">"range"</span><span class="w"> </span><span class="nx">min</span><span class="o">=</span><span class="p">{</span><span class="mf">12</span><span class="p">}</span><span class="w"> </span><span class="nx">max</span><span class="o">=</span><span class="p">{</span><span class="mf">22</span><span class="p">}</span><span class="w"> </span><span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">size</span><span class="p">}</span>
+<a id="__codelineno-8-38" name="__codelineno-8-38"></a><span class="w">                   </span><span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">update</span><span class="p">({</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="kt">e.target.valueAsNumber</span><span class="w"> </span><span class="p">})}</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="p">{</span><span class="nx">size</span><span class="p">}</span><span class="w"> </span><span class="nx">px</span>
+<a id="__codelineno-8-39" name="__codelineno-8-39"></a><span class="w">          </span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+<a id="__codelineno-8-40" name="__codelineno-8-40"></a><span class="w">          </span><span class="o">&lt;</span><span class="nx">label</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"form-check-label"</span><span class="o">&gt;</span>
+<a id="__codelineno-8-41" name="__codelineno-8-41"></a><span class="w">            </span><span class="o">&lt;</span><span class="nx">input</span><span class="w"> </span><span class="kr">type</span><span class="o">=</span><span class="s2">"checkbox"</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"form-check-input"</span><span class="w"> </span><span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">areaVisible</span><span class="p">}</span>
+<a id="__codelineno-8-42" name="__codelineno-8-42"></a><span class="w">                   </span><span class="nx">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setAreaVisible</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">checked</span><span class="p">)}</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">area</span>
+<a id="__codelineno-8-43" name="__codelineno-8-43"></a><span class="w">          </span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+<a id="__codelineno-8-44" name="__codelineno-8-44"></a><span class="w">        </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-45" name="__codelineno-8-45"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"row g-3 text-body"</span><span class="o">&gt;</span>
+<a id="__codelineno-8-46" name="__codelineno-8-46"></a><span class="w">          </span><span class="p">{</span><span class="cm">/* entfernt: Diese Komponenten verschwinden samt ihrem lokalen Zustand */</span><span class="p">}</span>
+<a id="__codelineno-8-47" name="__codelineno-8-47"></a><span class="w">          </span><span class="p">{</span><span class="nx">areaVisible</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-8-48" name="__codelineno-8-48"></a><span class="w">            </span><span class="o">&lt;&gt;</span>
+<a id="__codelineno-8-49" name="__codelineno-8-49"></a><span class="w">              </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-3"</span><span class="o">&gt;&lt;</span><span class="nx">Shop</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-50" name="__codelineno-8-50"></a><span class="w">              </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-3"</span><span class="o">&gt;&lt;</span><span class="nx">CartSummary</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-51" name="__codelineno-8-51"></a><span class="w">              </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-3"</span><span class="o">&gt;&lt;</span><span class="nx">LocalCounter</span><span class="w"> </span><span class="nx">title</span><span class="o">=</span><span class="s2">"Local state"</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-52" name="__codelineno-8-52"></a><span class="w">            </span><span class="o">&lt;</span><span class="err">/&gt;</span>
+<a id="__codelineno-8-53" name="__codelineno-8-53"></a><span class="w">          </span><span class="p">)}</span>
+<a id="__codelineno-8-54" name="__codelineno-8-54"></a><span class="w">          </span><span class="p">{</span><span class="cm">/* ausgeblendet: Die Komponente bleibt im Speicher, ihr Zustand bleibt erhalten */</span><span class="p">}</span>
+<a id="__codelineno-8-55" name="__codelineno-8-55"></a><span class="w">          </span><span class="o">&lt;</span><span class="nx">Activity</span><span class="w"> </span><span class="nx">mode</span><span class="o">=</span><span class="p">{</span><span class="nx">areaVisible</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">'visible'</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">'hidden'</span><span class="p">}</span><span class="o">&gt;</span>
+<a id="__codelineno-8-56" name="__codelineno-8-56"></a><span class="w">            </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"col-md-3"</span><span class="o">&gt;&lt;</span><span class="nx">LocalCounter</span><span class="w"> </span><span class="nx">title</span><span class="o">=</span><span class="s2">"Local state, in an Activity"</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-57" name="__codelineno-8-57"></a><span class="w">          </span><span class="o">&lt;</span><span class="err">/Activity&gt;</span>
+<a id="__codelineno-8-58" name="__codelineno-8-58"></a><span class="w">        </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-59" name="__codelineno-8-59"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"mt-3 mb-2"</span><span class="o">&gt;</span><span class="nx">Outside</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">area</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">second</span><span class="w"> </span><span class="nx">summary</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">SAME</span><span class="w"> </span><span class="nx">cart</span><span class="w"> </span><span class="p">(</span><span class="nx">it</span><span class="w"> </span><span class="nx">stays</span><span class="w"> </span><span class="nx">there</span><span class="w"> </span><span class="nx">when</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">area</span><span class="w"> </span><span class="nx">disappears</span><span class="p">)</span><span class="o">:&lt;</span><span class="err">/p&gt;</span>
+<a id="__codelineno-8-60" name="__codelineno-8-60"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">"text-body"</span><span class="o">&gt;&lt;</span><span class="nx">CartSummary</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-61" name="__codelineno-8-61"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-62" name="__codelineno-8-62"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-8-63" name="__codelineno-8-63"></a><span class="w">  </span><span class="p">);</span>
+<a id="__codelineno-8-64" name="__codelineno-8-64"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 23: Ohne Selektor wird der gesamte Store gelesen (und die Komponente wird bei jeder Änderung neu aufgerufen);</li>
+<li>Zeilen 47–53: Das Feld wird <strong>entfernt,</strong> wenn das Kontrollkästchen deaktiviert wird: Seine Komponenten verschwinden samt ihrem lokalen Zustand;</li>
+<li>Zeilen 55–57: <strong><em>[&lt;Activity mode=&quot;hidden&quot;&gt;]</em></strong> (<em>[React]</em> 19.2) <strong>blendet</strong> seinen Inhalt aus, ohne ihn zu entfernen: Die Komponente bleibt samt ihrem Zustand im Speicher. Das ist nützlich für Tabs oder für eine Seite, die man verlässt und zu der man zurückkehrt;</li>
+<li>Zeile 60: außerhalb des Bereichs eine zweite Zusammenfassung DESSELBEN Warenkorbs.</li>
+</ul>
+<p>Legen Sie zwei Artikel in den Warenkorb, klicken Sie doppelt auf den ersten lokalen Zähler und dreifach auf den Zähler in <strong><em>der [Activity]</em></strong>, deaktivieren und aktivieren Sie anschließend „Bereich anzeigen“ wieder und aktivieren Sie „dunkles Design“:</p>
+<p><img src="images/10000000000005DC000002EE28AEE1DD.png" width="605" height="302" style="width:16cm;height:7.999cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000005DC000002EE28AEE1DD.png" /></p>
+<p>Der Warenkorb bleibt unverändert erhalten (er liegt im Store); der erste Zähler wurde auf 0 zurückgesetzt (seine Komponente wurde entfernt und anschließend neu erstellt); der von <strong><em>[Activity]</em></strong> hat seinen Wert behalten. Wenn Sie die Seite neu laden (F5), ist der Warenkorb leer, aber das Design und die Textgröße bleiben erhalten (<strong><em>[localStorage]</em></strong>).</p>
+<p>Dies ist dieselbe Problematik wie in Beispiel 23 des <em>[NestJS]</em>-Kurses (Anwendungsbereich, Anfrage, Client), übertragen auf den Browser.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Dieses Tutorial, geschrieben von der KI <strong>Claude</strong> von Anthropic im Auftrag von <strong>Serge Tahé</strong>, wird der Öffentlichkeit unter den Bedingungen der Lizenz
+        <em>Creative Commons Namensnennung – Nicht kommerziell –
+        Weitergabe unter gleichen Bedingungen 3.0 Unported</em> zur Verfügung gestellt.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
